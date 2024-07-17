@@ -2,10 +2,8 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
 # C extensions
 *.so
-
 # Distribution / packaging
 .Python
 build/
@@ -160,3 +158,11 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
+terraform/keys/my-creds.json
+terraform/.terraform.lock.hcl
+terraform/.terraform/providers/registry.terraform.io/hashicorp/google/5.38.0/linux_amd64/terraform-provider-google_v5.38.0_x5
+terraform/.terraform/providers/registry.terraform.io/hashicorp/google/5.38.0/linux_amd64/LICENSE.txt
+terraform/terraform.tfstate.backup
+terraform/terraform.tfstate
+
