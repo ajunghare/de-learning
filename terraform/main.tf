@@ -1,17 +1,3 @@
-terraform {
-  required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = "5.38.0"
-    }
-  }
-}
-
-provider "google" {
-  # credentials = "./keys/my-creds.json"
-  project = "ee-india-se-data"
-  region  = "asia-south1"
-}
 
 resource "google_storage_bucket" "landing-bucket" {
   name                     = "se-data-landing-ajit"
@@ -27,3 +13,16 @@ resource "google_storage_bucket" "landing-bucket" {
     }
   }
 }
+
+resource "google_bigquery_dataset" "movies_data" {
+  dataset_id                  = "movies_data_ajit"
+  friendly_name               = "movies_data"
+  description                 = "Dataset for movies"
+  location                    = "ASIA-SOUTH1"
+  default_table_expiration_ms = 3600000
+
+  labels = {
+    env = "default"
+  }
+}
+
