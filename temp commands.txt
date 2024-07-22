@@ -1,0 +1,6 @@
+deploy cloud function for loading data:
+gcloud functions deploy invoke_on_event --no-gen2 --runtime python312 --region=asia-south1 --trigger-resource se-data-landing-ajit --trigger-event google.storage.object.finalize
+
+upload file to gs:
+gcloud storage cp ~/Downloads/movies_sample.csv  gs://se-data-landing-ajit
+
