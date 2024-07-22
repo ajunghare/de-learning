@@ -34,8 +34,11 @@ jobs:
         uses: 'google-github-actions/deploy-cloud-functions@v2'
         id: deploy
         with:
+          name: 'invoke_on_event'
+          runtime: 'python312'
           service: ${{ env.SERVICE }}
           region: ${{ env.REGION }}
+          
           # NOTE: If required, update to the appropriate source folder
           source: ./cloud_functions/hello-world-1/
 
