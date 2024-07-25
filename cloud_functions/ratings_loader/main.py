@@ -1,6 +1,6 @@
 from google.cloud import bigquery
 
-def invoke_on_event(event_data, context):
+def ratings_loader(event_data, context):
     print("--------#######---------")
     filename = event_data["name"]
     bucket_name = event_data["bucket"]
@@ -11,7 +11,7 @@ def invoke_on_event(event_data, context):
         dataset_id = "movies_data_ajit"
         dataset_ref = bigquery.DatasetReference(project, dataset_id)
 
-        table_id = "ratings"
+        table_id = "ratings_raw"
         table_ref = dataset_ref.table(table_id)
         table = client.get_table(table_ref)
         print("Table {} contains {} columns.".format(table_id, len(table.schema)))

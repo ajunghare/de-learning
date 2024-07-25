@@ -1,6 +1,6 @@
-resource "google_bigquery_table" "ratings" {
+resource "google_bigquery_table" "ratings_raw" {
   dataset_id          = google_bigquery_dataset.movies_data.dataset_id
-  table_id            = "ratings"
+  table_id            = "ratings_raw"
   deletion_protection = false
   schema              = <<EOF
     [
