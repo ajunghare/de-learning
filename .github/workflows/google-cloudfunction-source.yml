@@ -39,6 +39,7 @@ jobs:
           service: ${{ env.SERVICE }}
           region: ${{ env.REGION }}
           event_trigger_type: google.storage.object.finalize
+          event_trigger_resource: projects/${{ env.PROJECT_ID }}/buckets/se-data-landing-ajit
           
           # NOTE: If required, update to the appropriate source folder
           source: ./cloud_functions/hello-world-1/
