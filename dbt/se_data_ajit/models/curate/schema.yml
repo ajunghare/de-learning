@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: raw
+    database: ee-india-se-data
+    schema: movies_data_ajit
+    tables:
+      - name: movies_raw
+      - name: ratings_raw
+
