@@ -38,6 +38,7 @@ jobs:
           runtime: 'python312'
           service: ${{ env.SERVICE }}
           region: ${{ env.REGION }}
+          event_trigger_type: google.storage.object.finalize
           
           # NOTE: If required, update to the appropriate source folder
           source: ./cloud_functions/hello-world-1/
