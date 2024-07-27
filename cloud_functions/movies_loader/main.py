@@ -1,6 +1,6 @@
 from google.cloud import bigquery
 
-def invoke_on_event(event_data, context):
+def movies_loader(event_data, context):
     print("--------#######---------")
     filename = event_data["name"]
     bucket_name = event_data["bucket"]
