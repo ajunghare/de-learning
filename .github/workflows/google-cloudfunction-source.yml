@@ -30,18 +30,32 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
           
-      - name: Cloud Functions Deploy
+      - name: Movies Cloud Functions Deploy
         uses: 'google-github-actions/deploy-cloud-functions@v2'
         id: deploy
         with:
-          name: 'invoke_on_event'
+          name: 'movies_loader_ajit'
           runtime: 'python312'
           service: ${{ env.SERVICE }}
           region: ${{ env.REGION }}
           event_trigger_type: google.storage.object.finalize
           event_trigger_resource: projects/${{ env.PROJECT_ID }}/buckets/se-data-landing-ajit
-          source_dir: ./cloud_functions/hello-world-1/
+          source_dir: ./cloud_functions/movies_loader/
+          entry_point: movies_loader
 
+      - name: Ratings Cloud Functions Deploy
+        uses: 'google-github-actions/deploy-cloud-functions@v2'
+        id: deploy
+        with:
+          name: 'ratings_loader_ajit'
+          runtime: 'python312'
+          service: ${{ env.SERVICE }}
+          region: ${{ env.REGION }}
+          event_trigger_type: google.storage.object.finalize
+          event_trigger_resource: projects/${{ env.PROJECT_ID }}/buckets/se-data-landing-ajit
+          source_dir: ./cloud_functions/ratings_loader/
+          entry_point: ratings_loader
+      
       # If required, use the Cloud Run url output in later steps
       - name: Show Output
         run: echo ${{ steps.deploy.outputs.url }}
