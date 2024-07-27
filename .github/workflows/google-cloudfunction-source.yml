@@ -32,7 +32,7 @@ jobs:
           
       - name: Movies Cloud Functions Deploy
         uses: 'google-github-actions/deploy-cloud-functions@v2'
-        id: deploy
+        id: deploy-movies-function
         with:
           name: 'movies_loader_ajit'
           runtime: 'python312'
@@ -45,7 +45,7 @@ jobs:
 
       - name: Ratings Cloud Functions Deploy
         uses: 'google-github-actions/deploy-cloud-functions@v2'
-        id: deploy
+        id: deploy-ratings-function
         with:
           name: 'ratings_loader_ajit'
           runtime: 'python312'
