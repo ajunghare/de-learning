@@ -175,3 +175,6 @@ terraform/terraform.tfstate
 .gcloudignore
 terraform/.terraform/providers/registry.terraform.io/hashicorp/archive/2.4.2/linux_amd64/terraform-provider-archive_v2.4.2_x5
 terraform/.terraform.tfstate.lock.info
+dbt/se_data_ajit/package-lock.yml
+cloud_functions/rating_loader.zip
+.vscode/settings.json
