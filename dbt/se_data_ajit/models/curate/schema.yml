@@ -8,6 +8,28 @@ sources:
       - name: movies_raw
       - name: ratings_raw 
 models:
+  - name: movie_ratings_pres
+    columns:
+      - name: movie_id
+        data_type: INT
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref("movies_raw_to_curate")
+              field: id
+      - name:  ratings
+        data_type: DECIMAL
+        data_test:
+          - not_null
+      - name: number_of_ratings
+        data_type: INT
+      - name: median_ratings
+        data_type: DECIMAL
+      - name: rank_movie_by_median_rating
+        data_type: DECIMAL
+
+
+
   - name: ratings_raw_to_curate
     description: "A dbt model on Curate layer for Ratings"
     columns:
@@ -53,7 +75,7 @@ models:
 
       - name: id
         description: "The primary key for this table"
-        tests:
+        data_tests:
           - not_null
         data_type: int64
         description: ""
@@ -81,7 +103,7 @@ models:
       - name: poster_path
         data_type: string
         description: ""
-        tests:
+        data_tests:
           - starts_with:
               prefix: "/"
 
@@ -136,5 +158,6 @@ models:
       - name: load_date
         data_type: datetime
         description: ""
+
 
 
