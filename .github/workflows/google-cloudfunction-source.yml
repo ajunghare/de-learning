@@ -36,7 +36,6 @@ jobs:
         with:
           name: 'movies_loader_ajit'
           runtime: 'python312'
-          service: ${{ env.SERVICE }}
           region: ${{ env.REGION }}
           event_trigger_type: google.storage.object.finalize
           event_trigger_resource: projects/${{ env.PROJECT_ID }}/buckets/se-data-landing-ajit
@@ -49,7 +48,6 @@ jobs:
         with:
           name: 'ratings_loader_ajit'
           runtime: 'python312'
-          service: ${{ env.SERVICE }}
           region: ${{ env.REGION }}
           event_trigger_type: google.storage.object.finalize
           event_trigger_resource: projects/${{ env.PROJECT_ID }}/buckets/se-data-landing-ajit
