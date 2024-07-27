@@ -1,0 +1,119 @@
+version: 2
+
+sources:
+  - name: raw
+    database: ee-india-se-data
+    schema: movies_data_ajit
+    tables:
+      - name: movies_raw
+models:
+  - name: movies_raw_to_curate
+    description: "A Movies Curate dbt model from raw"
+    columns:
+      - name: adult
+        data_type: boolean
+        description: ""
+
+      - name: belongs_to_collection
+        data_type: json
+        description: ""
+
+      - name: budget
+        data_type: int64
+        description: ""
+
+      - name: genres
+        data_type: string
+        description: ""
+
+      - name: homepage
+        data_type: string
+        description: ""
+
+      - name: id
+        description: "The primary key for this table"
+        tests:
+          - not_null
+        data_type: int64
+        description: ""
+
+      - name: imdb_id
+        data_type: string
+        description: ""
+
+      - name: original_language
+        data_type: string
+        description: ""
+
+      - name: original_title
+        data_type: string
+        description: ""
+
+      - name: overview
+        data_type: string
+        description: ""
+
+      - name: popularity
+        data_type: numeric
+        description: ""
+
+      - name: poster_path
+        data_type: string
+        description: ""
+        tests:
+          - starts_with:
+              prefix: "/"
+
+      - name: production_companies
+        data_type: string
+        description: ""
+
+      - name: production_countries
+        data_type: string
+        description: ""
+
+      - name: release_date
+        data_type: date
+        description: ""
+
+      - name: revenue
+        data_type: int64
+        description: ""
+
+      - name: runtime
+        data_type: numeric
+        description: ""
+
+      - name: spoken_languages
+        data_type: string
+        description: ""
+
+      - name: status
+        data_type: string
+        description: ""
+
+      - name: tagline
+        data_type: string
+        description: ""
+
+      - name: title
+        data_type: string
+        description: ""
+
+      - name: video
+        data_type: boolean
+        description: ""
+
+      - name: vote_average
+        data_type: numeric
+        description: ""
+
+      - name: vote_count
+        data_type: int64
+        description: ""
+
+      - name: load_date
+        data_type: datetime
+        description: ""
+
+
