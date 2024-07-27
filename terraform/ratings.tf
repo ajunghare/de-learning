@@ -27,6 +27,13 @@ resource "google_bigquery_table" "ratings_raw" {
         "type": "STRING",
         "mode": "NULLABLE",
         "description": "timestamp"
+      },
+      {
+        "name": "load_time",
+        "type": "DATETIME",
+        "defaultValueExpression": "CURRENT_DATETIME()",
+        "mode": "NULLABLE",
+        "description": "vote_count"
       }
     ] 
     EOF

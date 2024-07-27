@@ -18,7 +18,16 @@ def ratings_loader(event_data, context):
 
         job_config = bigquery.LoadJobConfig()
         job_config.write_disposition = bigquery.WriteDisposition.WRITE_APPEND
-        
+        job_config.schema_update_options = [
+            bigquery.SchemaUpdateOption.ALLOW_FIELD_ADDITION
+        ]
+        schema_list = []
+        print("table schema list", table.schema)
+        for field in table.schema:
+            if field.name != "load_time":
+                schema_list.append(bigquery.SchemaField(name=field.name, field_type=field.field_type, mode=field.mode))
+
+        job_config.schema = schema_list
         job_config.source_format = bigquery.SourceFormat.CSV
         job_config.skip_leading_rows = 1
         job = client.load_table_from_uri(

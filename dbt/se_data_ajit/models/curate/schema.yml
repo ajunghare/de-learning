@@ -6,7 +6,28 @@ sources:
     schema: movies_data_ajit
     tables:
       - name: movies_raw
+      - name: ratings_raw 
 models:
+  - name: ratings_raw_to_curate
+    description: "A dbt model on Curate layer for Ratings"
+    columns:
+      - name: userId
+        data_type: INT
+        data_tests:
+          - not_null
+
+      - name: movieId
+        data_type: INT
+
+      - name: rating
+        data_type: DECIMAL
+
+      - name: timestamp
+        data_type: TIMESTAMP
+      
+      - name: load_time
+        data_type: DATETIME
+
   - name: movies_raw_to_curate
     description: "A Movies Curate dbt model from raw"
     columns:
