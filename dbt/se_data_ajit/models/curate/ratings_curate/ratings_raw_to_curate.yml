@@ -23,7 +23,7 @@ models:
         data_type: DECIMAL
 
       - name: timestamp
-        data_type: TIMESTAMP
+        data_type: INT
       
       - name: load_time
         data_type: DATETIME
@@ -44,6 +44,49 @@ unit_tests:
       rows:
         - { userId: 11, movieId: 12, rating: 3.0, timestamp: 1111930975 }
 
+  - name: test_rating_curate_duplicates2
+    description: "removes duplicates from inserting into ratings_curate"
+    model: ratings_raw_to_curate
+    overrides:
+      macros:
+        is_incremental: true
+    given:
+      - input: source('raw','ratings_raw')
+        rows:
+          - { userId: '11', movieId: '12', rating: '3.0', timestamp: '1111930975', load_time: 2024-07-28T19:55:06.393498}
+          - { userId: '11', movieId: '12', rating: '2.0', timestamp: '1111930985', load_time: 2024-07-28T19:55:06.393498}
+      - input: this
+        rows:
+          - { userId: 11, movieId: 12, rating: 1.0, timestamp: 1111930975, load_time: 2024-07-27T19:55:06.393498 }
+    expect:
+      rows:
+        - { userId: 11, movieId: 12, rating: 2.0, timestamp: 1111930985 }
 
+  - name: test_rating_curate_duplicates
+    description: "removes duplicates from inserting into ratings_curate"
+    model: ratings_raw_to_curate
+    overrides:
+      macros:
+        is_incremental: true
+    given:
+      - input: source('raw','ratings_raw')
+        format: csv
+        rows: |
+          userId,movieId,rating,timestamp,load_time
+          11,12,3.0,1111930975,2024-07-28T19:55:06.393498
+          11,12,2.0,1111930985,2024-07-28T19:55:06.393498
+      - input: this
+        format: csv
+        rows: |
+          userId,movieId,rating,timestamp,load_time
+          11,12,1.0,1111930975,2024-07-27T19:55:06.393498
+    expect:
+      format: csv
+      rows: |
+        userId,movieId,rating,timestamp
+        11,12,2.0,1111930985
+          
+
+          
 
     
