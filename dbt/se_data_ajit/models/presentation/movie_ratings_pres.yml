@@ -1,0 +1,47 @@
+version: 2
+
+
+models:
+  - name: movie_ratings_pres
+    columns:
+      - name: movie_id
+        data_type: INT
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref("movies_raw_to_curate")
+              field: id
+      - name: title
+        data_type: STRING
+      - name: number_of_ratings
+        data_type: INT
+        data_test:
+          - not_null
+      - name: median_ratings
+        data_type: DECIMAL
+      - name: rank_movie_by_median_rating
+        data_type: DECIMAL
+
+unit_tests:
+  - name: test_one_record_per_movie
+    description: "check if only record of Movie present"
+    model: movie_ratings_pres
+    given:
+      - input: ref('movies_raw_to_curate')
+        rows:
+          - {Id: 1, title: "abc"}
+          - {Id: 2, title: "xyz"}
+      - input: ref('ratings_raw_to_curate')
+        rows:
+          - {userId: 1, movieId: 1, rating: 2.0}
+          - {userId: 2, movieId: 1, rating: 3.0}
+          - {userId: 1, movieId: 2, rating: 2.0}
+    expect:
+      rows:
+        - {movie_id: 1, title: "abc", number_of_ratings: 2, median_ratings: 2.5, rank_movie_by_median_rating: 1}
+        - {movie_id: 2, title: "xyz", number_of_ratings: 1, median_ratings: 2.0, rank_movie_by_median_rating: 2}
+        
+
+
+
+  
