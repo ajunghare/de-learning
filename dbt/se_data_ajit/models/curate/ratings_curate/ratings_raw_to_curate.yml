@@ -1,0 +1,49 @@
+version: 2
+
+sources:
+  - name: raw
+    database: ee-india-se-data
+    schema: movies_data_ajit
+    tables:
+      - name: ratings_raw 
+
+models:
+  - name: ratings_raw_to_curate
+    description: "A dbt model on Curate layer for Ratings"
+    columns:
+      - name: userId
+        data_type: INT
+        data_tests:
+          - not_null
+
+      - name: movieId
+        data_type: INT
+
+      - name: rating
+        data_type: DECIMAL
+
+      - name: timestamp
+        data_type: TIMESTAMP
+      
+      - name: load_time
+        data_type: DATETIME
+
+
+unit_tests:
+  - name: test_rating_curate_fields
+    description: "Check data types conversions"
+    model: ratings_raw_to_curate
+    overrides:
+      macros:
+        is_incremental: false
+    given:
+      - input: source('raw','ratings_raw')
+        rows:
+          - { userId: '11', movieId: '12', rating: '3.0', timestamp: '1111930975' }
+    expect:
+      rows:
+        - { userId: 11, movieId: 12, rating: 3.0, timestamp: 1111930975 }
+
+
+
+    
