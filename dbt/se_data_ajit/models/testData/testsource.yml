@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: information_schema
+    database: ee-india-se-data
+    schema: movies_data_ajit.INFORMATION_SCHEMA
+    tables:
+      - name: COLUMNS
