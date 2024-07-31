@@ -11,7 +11,7 @@ env:
   SERVICE: se-data-india-service-account # TODO: update Cloud Run service name
   REGION: asia-south1 # TODO: update Cloud Run service region
   GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
-  GOOGLE_OAUTH_ACCESS_TOKEN: ${{ secrets.GCP_AUTH_TOKEN}}
+
 jobs:
   terraform:
     name: 'Terraform'
@@ -35,28 +35,28 @@ jobs:
       - name: Terraform fmt
         id: fmt
         env:
-          GOOGLE_OAUTH_ACCESS_TOKEN: ${{ secrets.GCP_AUTH_TOKEN}}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
         run: terraform fmt -check
         continue-on-error: true
 
       - name: Terraform Init
         id: Init
         env:
-          GOOGLE_OAUTH_ACCESS_TOKEN: ${{ secrets.GCP_AUTH_TOKEN}}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
         run:  terraform init 
       
       # Run a terraform plan for pull requests only
       - name: Terraform Plan
         id: plan
         env:
-          GOOGLE_OAUTH_ACCESS_TOKEN: ${{ secrets.GCP_AUTH_TOKEN}}
-        #if: github.event_name == 'pull_request'
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
+        if: github.event_name == 'pull_request'
         run: terraform plan -no-color
       
         # On push to main, build or change infrastructure according to Terraform configuration files
       - name: Terraform Apply
         if: github.event_name == 'push'
         env:
-          GOOGLE_OAUTH_ACCESS_TOKEN: ${{ secrets.GCP_AUTH_TOKEN}}
-          # GOOGLE_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
+          GOOGLE_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
         run: terraform apply -auto-approve
