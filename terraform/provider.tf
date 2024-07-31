@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "google" {
-  # credentials = "./keys/my-creds.json"
+  credentials = "/Users/aj383k/.dbt/my-creds.json"
   project = "ee-india-se-data"
   region  = "asia-south1"
 }
