@@ -5,9 +5,6 @@ name: Deploy to Cloud Function from Source
 on: [push]
   # push:
     # branches: [ "main" ]
-on: [push]
-  # push:
-    # branches: [ "main" ]
 
 env:
   PROJECT_ID: ee-india-se-data # TODO: update Google Cloud project id
