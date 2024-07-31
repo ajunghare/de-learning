@@ -11,7 +11,7 @@ env:
   SERVICE: se-data-india-service-account # TODO: update Cloud Run service name
   REGION: asia-south1 # TODO: update Cloud Run service region
   GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
-
+  GOOGLE_OAUTH_ACCESS_TOKEN: ${{ secrets.GCP_AUTH_TOKEN}}
 jobs:
   terraform:
     name: 'Terraform'
@@ -58,5 +58,5 @@ jobs:
         if: github.event_name == 'push'
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
-          GOOGLE_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
+          GOOGLE_CREDENTIALS: ${{ env.GOOGLE_OAUTH_ACCESS_TOKEN }}
         run: terraform apply -auto-approve
