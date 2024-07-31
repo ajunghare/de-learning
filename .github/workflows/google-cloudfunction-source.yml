@@ -35,28 +35,28 @@ jobs:
       - name: Terraform fmt
         id: fmt
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
+          GOOGLE_OAUTH_ACCESS_TOKEN: ${{ secrets.GCP_AUTH_TOKEN}}
         run: terraform fmt -check
         continue-on-error: true
 
       - name: Terraform Init
         id: Init
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
+          GOOGLE_OAUTH_ACCESS_TOKEN: ${{ secrets.GCP_AUTH_TOKEN}}
         run:  terraform init 
       
       # Run a terraform plan for pull requests only
       - name: Terraform Plan
         id: plan
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
-        # if: github.event_name == 'pull_request'
+          GOOGLE_OAUTH_ACCESS_TOKEN: ${{ secrets.GCP_AUTH_TOKEN}}
+        #if: github.event_name == 'pull_request'
         run: terraform plan -no-color
       
         # On push to main, build or change infrastructure according to Terraform configuration files
       - name: Terraform Apply
         if: github.event_name == 'push'
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
-          GOOGLE_CREDENTIALS: ${{ env.GOOGLE_OAUTH_ACCESS_TOKEN }}
+          GOOGLE_OAUTH_ACCESS_TOKEN: ${{ secrets.GCP_AUTH_TOKEN}}
+          # GOOGLE_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
         run: terraform apply -auto-approve
