@@ -50,7 +50,7 @@ jobs:
         id: plan
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
-        if: github.event_name == 'pull_request'
+        # if: github.event_name == 'pull_request'
         run: terraform plan -no-color
       
         # On push to main, build or change infrastructure according to Terraform configuration files
