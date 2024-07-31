@@ -2,9 +2,9 @@
 
 name: Deploy to Cloud Function from Source
 
-on:
-  push:
-    branches: [ "main" ]
+on: [push]
+  # push:
+    # branches: [ "main" ]
 
 env:
   PROJECT_ID: ee-india-se-data # TODO: update Google Cloud project id
@@ -12,48 +12,46 @@ env:
   REGION: asia-south1 # TODO: update Cloud Run service region
 
 jobs:
-  deploy:
-    # Add 'id-token' with the intended permissions for workload identity federation
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-
+  terraform:
+    name: 'Terraform'
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./terraform
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.3.8
+          #   terraform_wrapper: false
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: true
 
-      # NOTE: Alternative option - authentication via credentials json
-      - name: Google Auth
-        id: auth
-        uses: 'google-github-actions/auth@v2'
-        with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
-          
-      - name: Movies Cloud Functions Deploy
-        uses: 'google-github-actions/deploy-cloud-functions@v2'
-        id: deploy-movies-function
-        with:
-          name: 'movies_loader_ajit'
-          runtime: 'python312'
-          region: ${{ env.REGION }}
-          event_trigger_type: google.storage.object.finalize
-          event_trigger_resource: projects/${{ env.PROJECT_ID }}/buckets/se-data-landing-ajit
-          source_dir: ./cloud_functions/movies_loader/
-          entry_point: movies_loader
-
-      - name: Ratings Cloud Functions Deploy
-        uses: 'google-github-actions/deploy-cloud-functions@v2'
-        id: deploy-ratings-function
-        with:
-          name: 'ratings_loader_ajit'
-          runtime: 'python312'
-          region: ${{ env.REGION }}
-          event_trigger_type: google.storage.object.finalize
-          event_trigger_resource: projects/${{ env.PROJECT_ID }}/buckets/se-data-landing-ajit
-          source_dir: ./cloud_functions/ratings_loader/
-          entry_point: ratings_loader
+      - name: Terraform Init
+        id: Init
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+        run:  terraform init 
       
-      # If required, use the Cloud Run url output in later steps
-      - name: Show Output
-        run: echo ${{ steps.deploy.outputs.url }}
+      # Run a terraform plan for pull requests only
+      - name: Terraform Plan
+        id: plan
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+        if: github.event_name == 'pull_request'
+        run: terraform plan -no-color
+      
+        # On push to main, build or change infrastructure according to Terraform configuration files
+      - name: Terraform Apply
+        if: github.event_name == 'push'
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+        run: terraform apply -auto-approve
