@@ -117,6 +117,70 @@ models:
         description: ""
 
 
-
-
+unit_tests:
+  - name: test_movies_curate_fields
+    description: "Check data types conversions"
+    model: movies_raw_to_curate
+    overrides:
+      macros:
+        is_incremental: false
+    given:
+      - input: source('raw','movies_raw')
+        rows:
+          - {
+              adult: "False",
+              belongs_to_collection: "{'id': 528, 'name': 'The Terminator Collection', 'poster_path': '/vxiKtcxAJxHhlg2H1X8y7zcM3k6.jpg', 'backdrop_path': '/cpmbkwSxZnKO69V82A9a34tvk2E.jpg'}",
+              budget: "155000000",
+              genres: "[{'id': 878, 'name': 'Science Fiction'}, {'id': 28, 'name': 'Action'}, {'id': 53, 'name': 'Thriller'}, {'id': 12, 'name': 'Adventure'}]",
+              homepage: "http://www.terminatormovie.com/",
+              id: "87101",
+              imdb_id: "tt1340138",
+              original_language: "en",
+              original_title: "Terminator Genisys",
+              overview: "The year is 2029. John Connor, leader of the resistance continues the war against the machines. At the Los Angeles offensive, John's fears of the unknown future begin to emerge when TECOM spies reveal a new plot by SkyNet that will attack him from both fronts; past and future, and will ultimately change warfare forever.",
+              popularity: "30.188198",
+              poster_path: "/5JU9ytZJyR3zmClGmVm9q4Geqbd.jpg",
+              production_companies: "[{'name': 'Paramount Pictures', 'id': 4}, {'name': 'Annapurna Pictures', 'id': 13184}, {'name': 'Skydance Media', 'id': 82819}]",
+              production_countries: "[{'iso_3166_1': 'US', 'name': 'United States of America'}]",
+              release_date: "2015-06-23",
+              revenue: "440603537",
+              runtime: "126",
+              spoken_languages: "[{'iso_639_1': 'en', 'name': 'English'}]",
+              status: "Released",
+              tagline: "Reset the future",
+              title: "Terminator Genisys",
+              video: "FALSE",
+              vote_average: "5.8",
+              vote_count: "3677",
+              load_date: 2024-07-27T19:55:06.393498
+            }
+    expect:
+      rows:
+        - { 
+            adult: false,
+            belongs_to_collection: {'id': 528, 'name': 'The Terminator Collection', 'poster_path': '/vxiKtcxAJxHhlg2H1X8y7zcM3k6.jpg', 'backdrop_path': '/cpmbkwSxZnKO69V82A9a34tvk2E.jpg'},
+            budget: 155000000,
+            genres: [{'id': 878, 'name': 'Science Fiction'}, {'id': 28, 'name': 'Action'}, {'id': 53, 'name': 'Thriller'}, {'id': 12, 'name': 'Adventure'}],
+            homepage: "http://www.terminatormovie.com/",
+            id: 87101,
+            imdb_id: "tt1340138",
+            original_language: "en",
+            original_title: "Terminator Genisys",
+            overview: "The year is 2029. John Connor, leader of the resistance continues the war against the machines. At the Los Angeles offensive, John's fears of the unknown future begin to emerge when TECOM spies reveal a new plot by SkyNet that will attack him from both fronts; past and future, and will ultimately change warfare forever.",
+            popularity: "30.188198",
+            poster_path: "/5JU9ytZJyR3zmClGmVm9q4Geqbd.jpg",
+            production_companies: [{'name': 'Paramount Pictures', 'id': 4}, {'name': 'Annapurna Pictures', 'id': 13184}, {'name': 'Skydance Media', 'id': 82819}],
+            production_countries: [{'iso_3166_1': 'US', 'name': 'United States of America'}],
+            release_date: "2015-06-23",
+            revenue: "440603537",
+            runtime: "126",
+            spoken_languages: [{'iso_639_1': 'en', 'name': 'English'}],
+            status: "Released",
+            tagline: "Reset the future",
+            title: "Terminator Genisys",
+            video: "FALSE",
+            vote_average: "5.8",
+            vote_count: "3677",
+            load_date: 2024-07-27T19:55:06.393498
+          }
 

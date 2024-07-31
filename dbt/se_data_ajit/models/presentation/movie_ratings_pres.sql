@@ -19,7 +19,8 @@ counters as(
     inner join  {{ ref("ratings_raw_to_curate") }} as ratings
     on movies.Id = ratings.movieId
     group by movies.Id, movies.title
-)
+),
+final as (
 select 
     counters.movie_id,
     counters.title, 
@@ -30,4 +31,5 @@ select
     counters 
         inner join
     medians on medians.movie_id = counters.movie_id
-    order by rank_movie_by_median_rating
+),
+select * from final

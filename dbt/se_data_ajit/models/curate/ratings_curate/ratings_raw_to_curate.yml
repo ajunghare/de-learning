@@ -5,7 +5,7 @@ sources:
     database: ee-india-se-data
     schema: movies_data_ajit
     tables:
-      - name: ratings_raw 
+      - name: ratings_raw
 
 models:
   - name: ratings_raw_to_curate
@@ -24,10 +24,9 @@ models:
 
       - name: timestamp
         data_type: INT
-      
+
       - name: load_time
         data_type: DATETIME
-
 
 unit_tests:
   - name: test_rating_curate_fields
@@ -39,7 +38,12 @@ unit_tests:
     given:
       - input: source('raw','ratings_raw')
         rows:
-          - { userId: '11', movieId: '12', rating: '3.0', timestamp: '1111930975' }
+          - {
+              userId: "11",
+              movieId: "12",
+              rating: "3.0",
+              timestamp: "1111930975",
+            }
     expect:
       rows:
         - { userId: 11, movieId: 12, rating: 3.0, timestamp: 1111930975 }
@@ -53,11 +57,29 @@ unit_tests:
     given:
       - input: source('raw','ratings_raw')
         rows:
-          - { userId: '11', movieId: '12', rating: '3.0', timestamp: '1111930975', load_time: 2024-07-28T19:55:06.393498}
-          - { userId: '11', movieId: '12', rating: '2.0', timestamp: '1111930985', load_time: 2024-07-28T19:55:06.393498}
+          - {
+              userId: "11",
+              movieId: "12",
+              rating: "3.0",
+              timestamp: "1111930975",
+              load_time: 2024-07-28T19:55:06.393498,
+            }
+          - {
+              userId: "11",
+              movieId: "12",
+              rating: "2.0",
+              timestamp: "1111930985",
+              load_time: 2024-07-28T19:55:06.393498,
+            }
       - input: this
         rows:
-          - { userId: 11, movieId: 12, rating: 1.0, timestamp: 1111930975, load_time: 2024-07-27T19:55:06.393498 }
+          - {
+              userId: 11,
+              movieId: 12,
+              rating: 1.0,
+              timestamp: 1111930975,
+              load_time: 2024-07-27T19:55:06.393498,
+            }
     expect:
       rows:
         - { userId: 11, movieId: 12, rating: 2.0, timestamp: 1111930985 }
@@ -87,6 +109,4 @@ unit_tests:
         11,12,2.0,1111930985
           
 
-          
 
-    

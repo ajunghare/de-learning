@@ -178,3 +178,8 @@ cloud_functions/rating_loader.zip
 terraform/.terraform.lock.hcl
 .idea/se-data-eng-excercise.iml
 terraform/.tfplan
+.github/.DS_Store
+.idea/.DS_Store
+.DS_Store
+.idea/sqldialects.xml
+dbt/se_data_ajit/.sqlfluff
