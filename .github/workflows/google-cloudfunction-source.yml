@@ -23,7 +23,7 @@ jobs:
         working-directory: ./terraform
     
     steps:
-      - name: copy-application-default-key
+      # - name: copy-application-default-key
       - name: Checkout
         uses: actions/checkout@v2
         
