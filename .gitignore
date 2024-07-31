@@ -182,4 +182,4 @@ terraform/.tfplan
 .idea/.DS_Store
 .DS_Store
 .idea/sqldialects.xml
-dbt/se_data_ajit/.sqlfluff
+
