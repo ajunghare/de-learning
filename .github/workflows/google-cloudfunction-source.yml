@@ -23,6 +23,7 @@ jobs:
         working-directory: ./terraform
     
     steps:
+      - name: copy-application-default-key
       - name: Checkout
         uses: actions/checkout@v2
         
@@ -57,4 +58,5 @@ jobs:
         if: github.event_name == 'push'
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
+          GOOGLE_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
         run: terraform apply -auto-approve
