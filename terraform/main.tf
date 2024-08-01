@@ -4,9 +4,6 @@ resource "google_storage_bucket" "landing-bucket" {
   force_destroy            = true
   public_access_prevention = "enforced"
 
-  lifecycle {
-    ignore_changes = ["ami"]
-  }
   lifecycle_rule {
     condition {
       age = 1
