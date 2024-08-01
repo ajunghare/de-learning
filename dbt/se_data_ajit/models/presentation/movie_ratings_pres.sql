@@ -37,6 +37,6 @@ final as (
         counters
     inner join
         medians on counters.movie_id = medians.movie_id
-),
+)
 
 select * from final

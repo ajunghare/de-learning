@@ -3,12 +3,12 @@ from google.cloud import bigquery
 
 class Loader:
 
-    def __init__(self, table_id, region, dataset_id,filename,bucket_name):
-        self.table_id = table_id
+    def __init__(self, region, dataset_id,filename,bucket_name):
         self.region = region
         self.dataset_id = dataset_id
         self.filename = filename
         self.bucket_name = bucket_name
+        self.table_id = filename.split("_")[0] + "_ raw"
 
     def load_csv(self):
 
@@ -64,18 +64,3 @@ class Loader:
         job_config.skip_leading_rows = 1
         self.job_config = job_config
 
-
-class MoviesLoader(Loader):
-    table_id = "movies_raw"
-    region = "asia-south1"
-    dataset_id = "movies_data_ajit"
-    def __init__(self, filename, bucket_name):
-        super().__init__(self.table_id, self.region, self.dataset_id, filename, bucket_name)
-
-
-class RatingsLoader(Loader):
-    table_id = "ratings_raw"
-    region = "asia-south1"
-    dataset_id = "movies_data_ajit"
-    def __init__(self, filename, bucket_name):
-        super().__init__(self.table_id, self.region, self.dataset_id, filename, bucket_name)

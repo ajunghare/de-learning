@@ -1,5 +1,5 @@
 
-from loaders import MoviesLoader, RatingsLoader
+from loaders import Loader
     
 def data_loader(event_data, context):
     print("--------#######---------")
@@ -16,8 +16,6 @@ def data_loader(event_data, context):
         print(err)
 
 def get_loader(filename, bucket_name):
-    if filename.startswith("movies_") and filename.endswith(".csv"):
-        return MoviesLoader(filename,bucket_name)
-    elif filename.startswith("ratings_") and filename.endswith(".csv"):
-        return RatingsLoader(filename,bucket_name)
-    return None
+    region = "asia-south1"
+    dataset_id = "movies_data_ajit"
+    return Loader(region,dataset_id,filename,bucket_name)

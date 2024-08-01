@@ -32,4 +32,3 @@ select
 from {{ source('raw','movies_raw') }}
 where
     adult in ("True", "False")
-    and adult != "Two months later" --Erroranous data
