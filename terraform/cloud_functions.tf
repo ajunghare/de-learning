@@ -1,35 +1,3 @@
-resource "google_storage_bucket" "landing-bucket" {
-  name                     = "se-data-landing-ajit"
-  location                 = "ASIA-SOUTH1"
-  force_destroy            = true
-  public_access_prevention = "enforced"
-
-  lifecycle_rule {
-    condition {
-      age = 1
-    }
-    action {
-      type = "AbortIncompleteMultipartUpload"
-    }
-  }
-}
-
-resource "google_storage_bucket" "cloud-function-bucket" {
-  name                     = "se-data-cloudfunction-ajit"
-  location                 = "ASIA-SOUTH1"
-  force_destroy            = true
-  public_access_prevention = "enforced"
-
-  lifecycle_rule {
-    condition {
-      age = 1
-    }
-    action {
-      type = "AbortIncompleteMultipartUpload"
-    }
-  }
-}
-
 
 data "archive_file" "functionZip" {
   type = "zip"
@@ -45,8 +13,8 @@ resource "google_storage_bucket_object" "archive" {
   depends_on = [ data.archive_file.functionZip, google_storage_bucket.cloud-function-bucket ]
 }
 
-resource "google_cloudfunctions_function" "ratings_loader" {
-  name = "ratings_loader"
+resource "google_cloudfunctions_function" "data_loader" {
+  name = "data_loader"
   runtime = "python312"
   source_archive_bucket = google_storage_bucket.cloud-function-bucket.name
   source_archive_object = google_storage_bucket_object.archive.name
