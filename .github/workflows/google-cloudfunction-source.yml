@@ -50,6 +50,7 @@ jobs:
         id: plan
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
+          GOOGLE_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
         run: terraform plan -no-color
       
         # On push to main, build or change infrastructure according to Terraform configuration files
