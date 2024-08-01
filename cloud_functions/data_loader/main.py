@@ -15,7 +15,7 @@ def data_loader(event_data, context):
     except Exception as err:
         print(err)
 
-def get_loader(filename,bucket_name):
+def get_loader(filename, bucket_name):
     if filename.startswith("movies_") and filename.endswith(".csv"):
         return MoviesLoader(filename,bucket_name)
     elif filename.startswith("ratings_") and filename.endswith(".csv"):

@@ -161,8 +161,7 @@ cython_debug/
 
 terraform/.terraform/*
 terraform/keys/my-creds.json
-terraform/terraform.tfstate.backup
-terraform/terraform.tfstate
+
 
 .idea/.gitignore
 .idea/misc.xml
@@ -183,3 +182,4 @@ terraform/.tfplan
 .DS_Store
 .idea/sqldialects.xml
 
+cloud_functions/data_loader.zip

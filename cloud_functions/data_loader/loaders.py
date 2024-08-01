@@ -10,7 +10,7 @@ class Loader:
         self.filename = filename
         self.bucket_name = bucket_name
 
-    def load_csv(self, filename, bucket_name):
+    def load_csv(self):
 
         client = bigquery.Client()
         project = client.project
@@ -21,7 +21,7 @@ class Loader:
 
         job = client.load_table_from_uri(
             "gs://{bucket_name}/{filename}".format(
-                bucket_name=bucket_name, filename=filename
+                bucket_name=self.bucket_name, filename=self.filename
             ),
             self.table_ref,
             location=self.region,  # Must match the destination dataset location.
@@ -69,13 +69,13 @@ class MoviesLoader(Loader):
     table_id = "movies_raw"
     region = "asia-south1"
     dataset_id = "movies_data_ajit"
-    def __init__(self):
-        super().__init__(self.table_id, self.region, self.dataset_id)
+    def __init__(self, filename, bucket_name):
+        super().__init__(self.table_id, self.region, self.dataset_id, filename, bucket_name)
 
 
 class RatingsLoader(Loader):
     table_id = "ratings_raw"
     region = "asia-south1"
     dataset_id = "movies_data_ajit"
-    def __init__(self):
-        super().__init__(self.table_id, self.region, self.dataset_id)
+    def __init__(self, filename, bucket_name):
+        super().__init__(self.table_id, self.region, self.dataset_id, filename, bucket_name)
