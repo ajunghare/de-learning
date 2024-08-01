@@ -4,6 +4,9 @@ resource "google_storage_bucket" "landing-bucket" {
   force_destroy            = true
   public_access_prevention = "enforced"
 
+  lifecycle {
+    ignore_changes = ["ami"]
+  }
   lifecycle_rule {
     condition {
       age = 1
@@ -42,7 +45,7 @@ resource "google_storage_bucket_object" "archive" {
   bucket = google_storage_bucket.cloud-function-bucket.name
   source = "../cloud_functions/data_loader.zip"
 
-  depends_on = [ data.archive_file.functionZip ]
+  depends_on = [ data.archive_file.functionZip, google_storage_bucket.cloud-function-bucket ]
 }
 
 resource "google_cloudfunctions_function" "ratings_loader" {

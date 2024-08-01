@@ -37,4 +37,5 @@ resource "google_bigquery_table" "ratings_raw" {
       }
     ] 
     EOF
+  depends_on = [google_bigquery_dataset.movies_data]
 }

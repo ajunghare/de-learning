@@ -13,96 +13,96 @@ expected_datatypes as (
         'bool' as data_type
     union all
     select
-        'belongs_to_collection',
-        'json'
+        'belongs_to_collection' as column_name,
+        'json' as data_type
     union all
     select
-        'budget',
-        'int64'
+        'budget' as column_name,
+        'int64' as data_type
     union all
     select
-        'genres',
-        'Array<string>'
+        'genres' as column_name,
+        'Array<string>' as data_type
     union all
     select
-        'homepage',
-        'string'
+        'homepage' as column_name,
+        'string' as data_type
     union all
     select
-        'id',
-        'int64'
+        'id' as column_name,
+        'int64' as data_type
     union all
     select
-        'imdb_id',
-        'string'
+        'imdb_id' as column_name,
+        'string' as data_type
     union all
     select
-        'original_language',
-        'string'
+        'original_language' as column_name,
+        'string' as data_type
     union all
     select
-        'original_title',
-        'string'
+        'original_title' as column_name,
+        'string' as data_type
     union all
     select
-        'overview',
-        'string'
+        'overview' as column_name,
+        'string' as data_type
     union all
     select
-        'popularity',
-        'numeric'
+        'popularity' as column_name,
+        'numeric' as data_type
     union all
     select
-        'poster_path',
-        'string'
+        'poster_path' as column_name,
+        'string' as data_type
     union all
     select
-        'production_companies',
-        'Array<string>'
+        'production_companies' as column_name,
+        'Array<string>' as data_type
     union all
     select
-        'production_countries',
-        'Array<string>'
+        'production_countries' as column_name,
+        'Array<string>' as data_type
     union all
     select
-        'release_date',
-        'date'
+        'release_date' as column_name,
+        'date' as data_type
     union all
     select
-        'revenue',
-        'int64'
+        'revenue' as column_name,
+        'int64' as data_type
     union all
     select
-        'runtime',
-        'numeric'
+        'runtime' as column_name,
+        'numeric' as data_type
     union all
     select
-        'spoken_languages',
-        'Array<string>'
+        'spoken_languages' as column_name,
+        'Array<string>' as data_type
     union all
     select
-        'status',
-        'string'
+        'status' as column_name,
+        'string' as data_type
     union all
     select
-        'tagline',
-        'string'
+        'tagline' as column_name,
+        'string' as data_type
     union all
     select
-        'title',
-        'string'
+        'title' as column_name,
+        'string' as data_type
     union all
     select
-        'video',
-        'bool'
+        'video' as column_name,
+        'bool' as data_type
     union all
     select
-        'vote_average',
-        'numeric'
+        'vote_average' as column_name,
+        'numeric' as data_type
     union all
     select
-        'vote_count',
-        'int64'
+        'vote_count' as column_name,
+        'int64' as data_type
 )
 
 select * from actual_datatypes as ad inner join expected_datatypes as ed
