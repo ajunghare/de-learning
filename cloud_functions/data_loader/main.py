@@ -7,7 +7,7 @@ def data_loader(event_data, context):
     filename = event_data["name"]
     bucket_name = event_data["bucket"]
 
-    loader = get_loader(filename,filename,bucket_name)
+    loader = get_loader(filename,bucket_name)
     try:
         loader.load_csv()
     except AttributeError:
