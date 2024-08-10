@@ -8,7 +8,7 @@ class Loader:
         self.dataset_id = dataset_id
         self.filename = filename
         self.bucket_name = bucket_name
-        self.table_id = filename.split("_")[0].trim() + "_ raw"
+        self.table_id = filename.split("_")[0].strip() + "_ raw"
 
     def load_csv(self):
 
