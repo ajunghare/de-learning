@@ -183,3 +183,4 @@ terraform/.tfplan
 .idea/sqldialects.xml
 
 cloud_functions/data_loader.zip
+/airflow/standalone_admin_password.txt
