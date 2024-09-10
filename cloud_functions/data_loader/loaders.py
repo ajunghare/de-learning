@@ -52,7 +52,7 @@ class Loader:
         schema_list = []
         print("table schema list", self.table.schema)
         for field in self.table.schema:
-            if field.name != "load_date":
+            if field.name not in ("load_date", "load_time"):
                 schema_list.append(
                     bigquery.SchemaField(
                         name=field.name, field_type=field.field_type, mode=field.mode
@@ -62,5 +62,6 @@ class Loader:
         job_config.schema = schema_list
         job_config.source_format = bigquery.SourceFormat.CSV
         job_config.skip_leading_rows = 1
+        job_config.max_bad_records = 3
         self.job_config = job_config
 

@@ -184,3 +184,6 @@ terraform/.tfplan
 
 cloud_functions/data_loader.zip
 /airflow/standalone_admin_password.txt
+cloud_functions/data_loader.zip
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
